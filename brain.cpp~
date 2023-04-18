@@ -1,0 +1,26 @@
+#include <brain.h>
+#include <iostream>
+
+
+using namespace std;
+
+
+
+brain::brain(void)
+           {
+              init();
+           }
+
+void brain::init (void)
+           {
+   		cell.init(0);
+
+           }
+
+brain::~brain()
+           {
+		cout << "Dead."<< endl;
+
+           }
+
+

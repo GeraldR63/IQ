@@ -1,0 +1,52 @@
+#ifndef CELL_H
+#define CELL_H
+
+#include <constants.h>
+
+class cell;
+enum direction {nX=1 , nY=2, nZ=3 , pX=4, pY=5, pZ=6 };
+typedef cell (cell::* fchain)(cell * cell, direction dir );
+
+class cell
+{
+  public:
+
+  int dim[3];
+  class cell *next[3];
+  class cell *prev[3];
+
+  class cell *current;
+  class cell *last;
+
+
+
+    
+   cell *fnextX(cell *);
+   cell *fprevX(cell *);
+   cell *fprevX(void);
+
+
+   cell *fnextY(cell *);
+   cell *fprevY(cell *);
+   cell *fprevY(void);
+
+   cell *fnextZ(cell *);
+   cell *fprevZ(cell *);
+   cell *fprevZ(void);
+
+   cell * hopi(cell *, direction);
+
+   fchain f[6];
+
+
+
+
+
+
+   cell(int x=-3, int y=-3, int z=-3); // Equals MAXCELLS
+   ~cell();
+
+   void init (int);
+};
+
+#endif

@@ -1,0 +1,109 @@
+#include <cell.h>
+#include <brain.h>
+#include <iostream>
+
+long cellcounter=0;
+using namespace std;
+
+
+cell * cell::fnextX(class cell *ancestor) { next[0]=ancestor; return next[0];}
+cell * cell::fprevX(class cell *parent)   { prev[0]=parent; return prev[0];}
+cell * cell::fprevX(void)   { return prev[0];}
+
+cell * cell::fnextY(class cell *ancestor) { next[1]=ancestor; return next[1];}
+cell * cell::fprevY(class cell *parent)   { prev[1]=parent; return prev[1];}
+cell * cell::fprevY(void)   { return prev[1];}
+
+cell * cell::fnextZ(class cell *ancestor) { next[2]=ancestor; return next[2];}
+cell * cell::fprevZ(class cell *parent)   { prev[2]=parent; return prev[2];}
+cell * cell::fprevZ(void)   { return prev[2];}
+
+
+cell * cell::hopi(class cell *dream, direction dir) { return this; }
+
+cell::cell(int x, int y, int z)
+   {
+
+        cellcounter++;        
+     	dim[0]=x;
+	dim[1]=y;
+	dim[2]=z;
+       
+	next[0]=next[1]=next[2]=NULL;
+	prev[0]=prev[1]=prev[2]=NULL;
+
+  	current=NULL;
+  	last=NULL;
+   
+        f[0]=&cell::hopi;
+        this->*f[0](this,nX);
+
+         
+
+	cout << "Dim " <<dim[0] <<"."<<dim[1]<<"."<<dim[2] <<endl ;
+   }
+
+cell::~cell()
+   {
+       cout << "Dying "<<cellcounter <<endl ;
+
+       //next->fnextX((cell*)fprevX());        
+   }
+
+void cell::init (int depth)
+           {
+   		
+
+                if (depth>=MAXCELLS) 
+                {
+		//cout << "Reached max brain size." << endl;
+                return;
+                }
+
+               //cout << "Cell going to live." << endl;
+               //sleep(1);
+               last=this;
+
+                if (!next[0])
+                {
+	 	next[0]=new class cell(dim[0]+1,0,0);
+		next[0]->init(depth+1);
+		}
+
+                if (!next[1])
+                {
+	 	next[1]=new class cell(0,dim[1]+1,0);
+		next[0]->init(depth+1);
+		}
+
+                if (!next[2])
+		{
+	 	next[2]=new class cell(0,0,dim[2]+1);
+		next[0]->init(depth+1);
+		}
+
+
+                if (!prev[0])
+		{
+	 	prev[0]=new class cell(dim[0]-1,0,0);
+		prev[0]->init(depth+1);
+		}
+
+                if (!prev[1])
+		{
+	 	prev[1]=new class cell(0,dim[1]-1,0);
+		prev[0]->init(depth+1);
+		}
+
+                if (!prev[2])
+		{
+	 	prev[2]=new class cell(0,0,dim[2]-1);
+		prev[0]->init(depth+1);
+		}
+
+
+
+
+                    		
+
+           }

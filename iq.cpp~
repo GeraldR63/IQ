@@ -1,0 +1,14 @@
+#include <iostream>
+#include <iq.hpp>
+#include <cell.h>
+#include <brain.h>
+#include <version.h>
+
+
+int main (int argc, char *argv[])
+{
+  brain brain;
+  printf("IQ 1.00 ended,\n\Autor %s\n\rBuild %s\n\rBuild# %s\n\r",author,release,build);
+return 0;
+}
+
